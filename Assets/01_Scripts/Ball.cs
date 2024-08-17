@@ -6,13 +6,18 @@ namespace Lagooneng.PocketBall
 {
     public class Ball : MonoBehaviour
     {
+        [SerializeField] private bool isBlack = false;
         [SerializeField] private bool isStripe = false;
 
         private void OnTriggerEnter(Collider other)
         {
             if( other.CompareTag( "Hole" ) )
             {
-                if( isStripe )
+                if( isBlack )
+                {
+                    ScoreManager.Instance.Score -= 3;
+                }
+                else if( isStripe )
                 {
                     ScoreManager.Instance.Score += 1;
                 }

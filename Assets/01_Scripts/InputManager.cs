@@ -12,5 +12,12 @@ namespace Lagooneng.PocketBall
             Input = new UserInputAction();
             Input.User.Enable();
         }
+
+        /*
+        private void FixedUpdate()
+        {
+            Debug.Log(Input.User.MousePos.ReadValue<Vector2>());
+        }
+        */
     }
 }
