@@ -7,12 +7,17 @@ namespace Lagooneng.PocketBall
 {
     public class Player : MonoBehaviour
     {
-        [SerializeField] GameObject WhiteBall;
+        public Vector3 ForceVec { get; set; }
+        [SerializeField] float power = 100.0f;
+        [SerializeField] GameObject whiteBall;
+        [SerializeField] GameObject gameEnd;
         private Rigidbody whiteBallRB;
+
+        private int shotCount = 0;
 
         private void Awake()
         {
-            whiteBallRB = WhiteBall.GetComponent<Rigidbody>();
+            whiteBallRB = whiteBall.GetComponent<Rigidbody>();
         }
 
         private void Start()
@@ -22,7 +27,25 @@ namespace Lagooneng.PocketBall
 
         public void SetWhiteBallV(InputAction.CallbackContext context)
         {
-            whiteBallRB.AddForce(100.0f, 0.0f, 0.0f);
+            if (shotCount > 2) return; 
+
+            whiteBallRB.AddForce(ForceVec * power);
+            ++shotCount;
+
+            if( shotCount == 3 )
+            {
+                Invoke("GameEnd", 10.0f);
+            }
+        }
+
+        public void GameEnd()
+        {
+            gameEnd.SetActive(true);
+        }
+
+        public void ReLoadScene()
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
     }
 }
