@@ -8,7 +8,6 @@ namespace Lagooneng.PocketBall
     {
         [SerializeField] private Player player;
         [SerializeField] private Transform whiteBall;
-        [SerializeField] private float posOffset = 1.0f;
 
         private void Update()
         {
@@ -33,7 +32,6 @@ namespace Lagooneng.PocketBall
                     transform.position = new Vector3(whiteBall.position.x,
                                 whiteBall.position.y,
                                 whiteBall.position.z);
-                    Debug.Log(transform.position);
 
                     player.ForceVec = direction;
                 }
