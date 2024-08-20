@@ -8,7 +8,7 @@ namespace Lagooneng.PocketBall
     public class Player : MonoBehaviour
     {
         public Vector3 ForceVec { get; set; }
-        [SerializeField] float power = 100.0f;
+        [SerializeField] float power = 10.0f;
         [SerializeField] GameObject whiteBall;
         [SerializeField] GameObject gameEnd;
         private Rigidbody whiteBallRB;
@@ -29,7 +29,7 @@ namespace Lagooneng.PocketBall
         {
             if (shotCount > 2) return; 
 
-            whiteBallRB.AddForce(ForceVec * power);
+            whiteBallRB.AddForce(ForceVec * power, ForceMode.Impulse);
             ++shotCount;
 
             if( shotCount == 3 )
