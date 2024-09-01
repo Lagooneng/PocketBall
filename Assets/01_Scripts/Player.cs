@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using UnityEngine.InputSystem;
 
 namespace Lagooneng.PocketBall
@@ -11,6 +13,9 @@ namespace Lagooneng.PocketBall
         [SerializeField] float power = 10.0f;
         [SerializeField] GameObject whiteBall;
         [SerializeField] GameObject gameEnd;
+        [SerializeField] TMP_Text gameEndCountText;
+        [SerializeField] TMP_Text remainingChallenges;
+        [SerializeField] private FadeFilter fadeFilter;
         private Rigidbody whiteBallRB;
 
         private int shotCount = 0;
@@ -32,9 +37,25 @@ namespace Lagooneng.PocketBall
             whiteBallRB.AddForce(ForceVec * power, ForceMode.Impulse);
             ++shotCount;
 
+            remainingChallenges.text = (3 - shotCount).ToString();
+
             if( shotCount == 3 )
             {
+                StartCoroutine(GameEndCount());
+                fadeFilter.fadeOut();
                 Invoke("GameEnd", 10.0f);
+            }
+        }
+
+        public IEnumerator GameEndCount()
+        {
+            gameEndCountText.enabled = true;
+
+            for( int i = 0; i < 10; ++i )
+            {
+                gameEndCountText.text = (10 - i).ToString();
+
+                yield return new WaitForSeconds(1.0f);
             }
         }
 
